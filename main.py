@@ -1,4 +1,7 @@
-class GardenBed: # Сад, здесь просто список растений
+import random
+
+
+class GardenBed:  # Сад, здесь просто список растений
     plants = []
 
     def display_garden(self):
@@ -6,7 +9,7 @@ class GardenBed: # Сад, здесь просто список растений
             i.show_plant_status()
 
 
-class Warehouse: # Склад, тут будем хранить кол-во всех растений
+class Warehouse:  # Склад, тут будем хранить кол-во всех растений
     contents = [0, 0, 0, 0, 0, 0, 0, 0]
     """
     apples
@@ -30,7 +33,7 @@ class Warehouse: # Склад, тут будем хранить кол-во вс
         print("Перец: " + str(self.contents[7]))
 
 
-class GameMaster: # Игрок, пока что тут ничего нет, ну и ладно
+class GameMaster:  # Игрок, пока что тут ничего нет, ну и ладно
     field = GardenBed()
     storage = Warehouse()
 
@@ -44,15 +47,15 @@ class GameMaster: # Игрок, пока что тут ничего нет, ну
         self.storage.display_warehouse()
 
 
-class Plant: # Базовый класс
+class Plant:  # Базовый класс
     harvest_progress = 0
     harvest_max = 0
     name = 'Plant'
-    mods = 0
+    mods: float = 1.0
     id = -1
 
 
-class Tree(Plant): # Класс дерева
+class Tree(Plant):  # Класс дерева
     growth_progress = 0
     growth_max = 0
 
@@ -61,7 +64,7 @@ class Tree(Plant): # Класс дерева
             print(self.name + ": Рост дерева: " + str(self.growth_progress) + "/" + str(self.growth_max))
         else:
             print(self.name + ": Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
-                  str(self.mods) + "%)")
+                  str(self.mods * 100) + "%)")
 
     def age(self):
         if self.growth_progress < self.growth_max:
@@ -71,20 +74,23 @@ class Tree(Plant): # Класс дерева
                 self.harvest_progress += 1
             if self.harvest_progress == self.harvest_max:
                 self.harvest_progress = 0
-                player.storage.contents[self.id] += 1
+                if random.random() < self.mods:
+                    player.storage.contents[self.id] += 1
 
 
-class Vegetable(Plant): # Класс овощей
+class Vegetable(Plant):  # Класс овощей
     def show_plant_status(self):
         print(self.name + ": Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
-              str(self.mods) + "%)")
+              str(self.mods * 100) + "%)")
 
     def age(self):
         if self.harvest_progress < self.harvest_max:
             self.harvest_progress += 1
         if self.harvest_progress == self.harvest_max:
             self.harvest_progress = 0
-            player.storage.contents[self.id] += 1
+            if random.random() < self.mods:
+                player.storage.contents[self.id] += 1
+
 
 # FRUIT TREES
 
@@ -115,6 +121,7 @@ class Plum(Tree):
     growth_max = 5
     name = 'Слива'
     id = 3
+
 
 # VEGETABLES
 
