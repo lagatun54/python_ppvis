@@ -23,14 +23,22 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
     """
 
     def display_warehouse(self):
-        print("Яблоки: " + str(self.contents[0]))
-        print("Груши: " + str(self.contents[1]))
-        print("Вишни: " + str(self.contents[2]))
-        print("Сливы: " + str(self.contents[3]))
-        print("Картофель: " + str(self.contents[4]))
-        print("Морковь: " + str(self.contents[5]))
-        print("Капуста: " + str(self.contents[6]))
-        print("Перец: " + str(self.contents[7]))
+        if self.contents[0] > 0:
+            print("Яблоки: " + str(self.contents[0]))
+        if self.contents[1] > 0:
+            print("Груши: " + str(self.contents[1]))
+        if self.contents[2] > 0:
+            print("Вишни: " + str(self.contents[2]))
+        if self.contents[3] > 0:
+            print("Сливы: " + str(self.contents[3]))
+        if self.contents[4] > 0:
+            print("Картофель: " + str(self.contents[4]))
+        if self.contents[5] > 0:
+            print("Морковь: " + str(self.contents[5]))
+        if self.contents[6] > 0:
+            print("Капуста: " + str(self.contents[6]))
+        if self.contents[7] > 0:
+            print("Перец: " + str(self.contents[7]))
 
 
 class GameMaster:  # Игрок, пока что тут ничего нет, ну и ладно
@@ -51,8 +59,8 @@ class Plant:  # Базовый класс
     harvest_progress = 0
     harvest_max = 0
     name = 'Plant'
-    mods: float = 1.0
-    id = -1
+    mods: float = 1.0  # Шанс на то, что растение даст урожай
+    id = None
 
 
 class Tree(Plant):  # Класс дерева
@@ -162,9 +170,11 @@ if __name__ == '__main__':
     apple1 = Apple()
     plum1 = Plum()
 
-    GameMaster.add_plant(player, apple1)
-    GameMaster.add_plant(player, plum1)
     GameMaster.add_plant(player, Potato())
+    GameMaster.add_plant(player, Plum())
+    GameMaster.add_plant(player, Cherry())
+    GameMaster.add_plant(player, Apple())
+    GameMaster.add_plant(player, Cherry())
 
     while True:
         player.update_screen()
