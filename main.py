@@ -1,4 +1,4 @@
-class Garden_bed: # Сад, здесь просто список растений
+class GardenBed: # Сад, здесь просто список растений
     plants = []
 
     def display_garden(self):
@@ -7,34 +7,41 @@ class Garden_bed: # Сад, здесь просто список растени�
 
 
 class Warehouse: # Склад, тут будем хранить кол-во всех растений
-    apples = 0
-    pears = 0
-    cherries = 0
-    plums = 0
-    potatoes = 0
-    carrots = 0
-    cabbage = 0
-    pepper = 0
+    contents = [0, 0, 0, 0, 0, 0, 0, 0]
+    """
+    apples
+    pears
+    cherries
+    plums
+    potatoes
+    carrots
+    cabbage
+    pepper
+    """
 
     def display_warehouse(self):
-        print("Яблоки: " + str(self.apples))
-        print("Груши: " + str(self.pears))
-        print("Вишни: " + str(self.cherries))
-        print("Сливы: " + str(self.plums))
-        print("Картофель: " + str(self.potatoes))
-        print("Морковь: " + str(self.carrots))
-        print("Капуста: " + str(self.cabbage))
-        print("Перец: " + str(self.pepper))
+        print("Яблоки: " + str(self.contents[0]))
+        print("Груши: " + str(self.contents[1]))
+        print("Вишни: " + str(self.contents[2]))
+        print("Сливы: " + str(self.contents[3]))
+        print("Картофель: " + str(self.contents[4]))
+        print("Морковь: " + str(self.contents[5]))
+        print("Капуста: " + str(self.contents[6]))
+        print("Перец: " + str(self.contents[7]))
 
 
-class Game_master: # Игрок, пока что тут ничего нет, ну и ладно
-    field = Garden_bed()
+class GameMaster: # Игрок, пока что тут ничего нет, ну и ладно
+    field = GardenBed()
+    storage = Warehouse()
 
     def add_plant(self, plant_name):
         self.field.plants.append(plant_name)
 
     def update_screen(self):
+        print("ГРЯДКИ")
         self.field.display_garden()
+        print("\nСКЛАД")
+        self.storage.display_warehouse()
 
 
 class Plant: # Базовый класс
@@ -42,6 +49,7 @@ class Plant: # Базовый класс
     harvest_max = 0
     name = 'Plant'
     mods = 0
+    id = -1
 
 
 class Tree(Plant): # Класс дерева
@@ -52,14 +60,31 @@ class Tree(Plant): # Класс дерева
         if self.growth_progress < self.growth_max:
             print(self.name + ": Рост дерева: " + str(self.growth_progress) + "/" + str(self.growth_max))
         else:
-            print(self.name + ": Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (" +
+            print(self.name + ": Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
                   str(self.mods) + "%)")
+
+    def age(self):
+        if self.growth_progress < self.growth_max:
+            self.growth_progress += 1
+        else:
+            if self.harvest_progress < self.harvest_max:
+                self.harvest_progress += 1
+            if self.harvest_progress == self.harvest_max:
+                self.harvest_progress = 0
+                player.storage.contents[self.id] += 1
 
 
 class Vegetable(Plant): # Класс овощей
     def show_plant_status(self):
-        print(self.name + ": Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (" +
+        print(self.name + ": Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
               str(self.mods) + "%)")
+
+    def age(self):
+        if self.harvest_progress < self.harvest_max:
+            self.harvest_progress += 1
+        if self.harvest_progress == self.harvest_max:
+            self.harvest_progress = 0
+            player.storage.contents[self.id] += 1
 
 # FRUIT TREES
 
@@ -68,24 +93,28 @@ class Apple(Tree):
     harvest_max = 3
     growth_max = 5
     name = 'Яблоня'
+    id = 0
 
 
 class Pear(Tree):
     harvest_max = 3
     growth_max = 6
     name = 'Груша'
+    id = 1
 
 
 class Cherry(Tree):
     harvest_max = 2
     growth_max = 6
     name = 'Вишня'
+    id = 2
 
 
 class Plum(Tree):
     harvest_max = 2
     growth_max = 5
     name = 'Слива'
+    id = 3
 
 # VEGETABLES
 
@@ -93,18 +122,45 @@ class Plum(Tree):
 class Potato(Vegetable):
     harvest_max = 2
     name = 'Картофель'
+    id = 4
+
+
+class Carrot(Vegetable):
+    harvest_max = 3
+    name = 'Морковь'
+    id = 5
+
+
+class Cabbage(Vegetable):
+    harvest_max = 2
+    name = 'Капуста'
+    id = 6
+
+
+class Pepper(Vegetable):
+    harvest_max = 3
+    name = 'Перец'
+    id = 7
+
+
+def age_all():
+    for x in GardenBed.plants:
+        x.age()
 
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    player = Game_master()
+    player = GameMaster()
 
     apple1 = Apple()
     plum1 = Plum()
 
+    GameMaster.add_plant(player, apple1)
+    GameMaster.add_plant(player, plum1)
+    GameMaster.add_plant(player, Potato())
 
-    Game_master.add_plant(player, apple1)
-    Game_master.add_plant(player, plum1)
-    Game_master.add_plant(player, Potato())
-
-    player.update_screen()
+    while True:
+        player.update_screen()
+        age_all()
+        if input() != '':
+            exit()
