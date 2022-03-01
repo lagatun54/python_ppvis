@@ -70,10 +70,15 @@ class Tree(Plant):  # Класс дерева
     growth_max = 0
 
     def show_plant_status(self):
+        print('')
+        for x in range(0, len(player.field.plants)):
+            if player.field.plants[x] == self:
+                print(str(x + 1) + ": ",  sep='', end='')
+
         if self.growth_progress < self.growth_max:
-            print(self.name + ": Рост дерева: " + str(self.growth_progress) + "/" + str(self.growth_max))
+            print(self.name + ". Рост дерева: " + str(self.growth_progress) + "/" + str(self.growth_max))
         else:
-            print(self.name + ": Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
+            print(self.name + ". Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
                   str(self.mods * 100) + "%)")
 
     def age(self):
@@ -90,7 +95,10 @@ class Tree(Plant):  # Класс дерева
 
 class Vegetable(Plant):  # Класс овощей
     def show_plant_status(self):
-        print(self.name + ": Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
+        for x in range(0, len(player.field.plants)):
+            if player.field.plants[x] == self:
+                print(str(x + 1) + ": ", sep = '', end = '')
+        print(self.name + ". Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
               str(self.mods * 100) + "%)")
 
     def age(self):
@@ -165,7 +173,7 @@ def age_all():
         x.age()
 
 
-class Events():
+class Events(): # случайное событие, не зависящее от игрока
     drought = False
     def drought_start(self): # бьёт по всем
         print("\nНачало засухи!")
@@ -191,6 +199,16 @@ class Events():
     def muchnaya_rosa_start(self): # бьёт по деревьям
         pass
 
+
+def watering():
+    number = int(input("Введите номер грядки: ")) - 1
+    if player.field.plants[number].is_droughted:
+        player.field.plants[number].is_droughted = False
+        player.field.plants[number].mods += 0.5
+        if player.field.plants[number].mods > 1.0:
+            player.field.plants[number].mods = 1.0
+
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     player = GameMaster()
@@ -208,15 +226,23 @@ if __name__ == '__main__':
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         player.update_screen()
-        age_all()
-        if random.random() > 0.5 and event.drought == False:
+        if random.random() < 0.15 and event.drought == False:
             Events.drought_start(event)
         else:
-            if random.random() > 0.5 and event.drought == True:
+            if random.random() < 0.05 and event.drought == True:
                 Events.drought_end(event)
 
-        if input() != '':
-            exit()
+        print("\n\n\n1 - высадка растений\n2 - поливка растений\n3 - прополка грядок")
+        step = input()
+        match step:
+            case '':
+                age_all()
+            case '2':
+                watering()
+                age_all()
+            case _:
+                exit()
+
 
 
 
