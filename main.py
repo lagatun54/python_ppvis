@@ -1,4 +1,5 @@
 import random
+import os
 
 
 class GardenBed:  # Сад, здесь просто список растений
@@ -177,7 +178,9 @@ if __name__ == '__main__':
     GameMaster.add_plant(player, Cherry())
 
     while True:
+        os.system('cls' if os.name == 'nt' else 'clear')
         player.update_screen()
         age_all()
         if input() != '':
             exit()
+
