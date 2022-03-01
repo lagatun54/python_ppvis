@@ -61,6 +61,7 @@ class Plant:  # Базовый класс
     harvest_max = 0
     name = 'Plant'
     mods: float = 1.0  # Шанс на то, что растение даст урожай
+    is_droughted = False
     id = None
 
 
@@ -158,20 +159,47 @@ class Pepper(Vegetable):
     name = 'Перец'
     id = 7
 
-
+# Увеличивается процесс урожая ход
 def age_all():
     for x in GardenBed.plants:
         x.age()
 
 
+class Events():
+    drought = False
+    def drought_start(self): # бьёт по всем
+        print("\nНачало засухи!")
+        self.drought = True
+        for x in player.field.plants:
+            if x.mods > 0.5:
+                x.mods -= 0.5
+                x.is_droughted = True
+            else:
+                x.mods = 0
+
+    def drought_end(self):  # бьёт по всем
+        self.drought = False
+        print("\nКонец засухи!")
+        for x in player.field.plants:
+            if x.is_droughted == True:
+                x.mods += 0.5
+                x.is_droughted = False
+
+    def colorado_beatle_start(self): # бьёт по картошке
+        pass
+
+    def muchnaya_rosa_start(self): # бьёт по деревьям
+        pass
+
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     player = GameMaster()
+    event = Events()
 
     apple1 = Apple()
     plum1 = Plum()
 
-    GameMaster.add_plant(player, Potato())
+    GameMaster.add_plant(player, Potato()) #высадка растений
     GameMaster.add_plant(player, Plum())
     GameMaster.add_plant(player, Cherry())
     GameMaster.add_plant(player, Apple())
@@ -181,6 +209,22 @@ if __name__ == '__main__':
         os.system('cls' if os.name == 'nt' else 'clear')
         player.update_screen()
         age_all()
+        if random.random() > 0.5 and event.drought == False:
+            Events.drought_start(event)
+        else:
+            if random.random() > 0.5 and event.drought == True:
+                Events.drought_end(event)
+
         if input() != '':
             exit()
 
+
+
+# прополка
+# поливка
+
+# события это класс, в котором есть флажки и методы
+# методы понижают модификатор каждого растения
+# события имеют рандомную продолжительность, после которой они заканчиваются и модификаторы возвращаются в норму
+# поливать можно отдельные грядки, это снимет их флажок и восстановит модификатор
+# по завершению события метод проъодит по всем растениям и повышает модификатор у тех, у кого остался флажок
