@@ -42,12 +42,31 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
             print("Перец: " + str(self.contents[7]))
 
 
-class GameMaster:  # Игрок, пока что тут ничего нет, ну и ладно
+class GameMaster:
     field = GardenBed()
     storage = Warehouse()
 
     def add_plant(self, plant_name):
         self.field.plants.append(plant_name)
+
+    def add_plant_based_on_id(self, id_name):
+        match id_name:
+            case 0:
+                self.add_plant(Apple())
+            case 1:
+                self.add_plant(Pear())
+            case 2:
+                self.add_plant(Cherry())
+            case 3:
+                self.add_plant(Plum())
+            case 4:
+                self.add_plant(Potato())
+            case 5:
+                self.add_plant(Carrot())
+            case 6:
+                self.add_plant(Cabbage())
+            case 7:
+                self.add_plant(Pepper())
 
     def update_screen(self):
         print("ГРЯДКИ")
@@ -71,7 +90,6 @@ class Tree(Plant):  # Класс дерева
     growth_max = 0
 
     def show_plant_status(self):
-        print('')
         for x in range(0, len(player.field.plants)):
             if player.field.plants[x] == self:
                 print(str(x + 1) + ": ",  sep='', end='')
@@ -98,7 +116,7 @@ class Vegetable(Plant):  # Класс овощей
     def show_plant_status(self):
         for x in range(0, len(player.field.plants)):
             if player.field.plants[x] == self:
-                print(str(x + 1) + ": ", sep = '', end = '')
+                print(str(x + 1) + ": ", sep='', end='')
         print(self.name + ". Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
               str(self.mods * 100) + "%)")
 
@@ -168,15 +186,16 @@ class Pepper(Vegetable):
     name = 'Перец'
     id = 7
 
-# Увеличивается процесс урожая ход
-def age_all():
+
+def age_all(): # Увеличивается процесс урожая ход
     for x in GardenBed.plants:
         x.age()
 
 
 class Events(): # случайное событие, не зависящее от игрока
     drought = False
-    def drought_start(self): # бьёт по всем
+
+    def drought_start(self):  # бьёт по всем
         print("\nНачало засухи!")
         self.drought = True
         for x in player.field.plants:
@@ -226,20 +245,15 @@ def watering():
         if player.field.plants[number].mods > 1.0:
             player.field.plants[number].mods = 1.0
 
+def planting():
+    number = int(input("Введите номер растения, которое хотите высадить:\n1 - яблоня\n2 - груша"
+                       "\n3 - вишня\n4 - слива\n5 - картофель\n6 - морковь\n7 - капуста\n8 - перец\n\n")) - 1
+    GameMaster.add_plant_based_on_id(player, number)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     player = GameMaster()
     event = Events()
-
-    apple1 = Apple()
-    plum1 = Plum()
-
-    GameMaster.add_plant(player, Potato()) #высадка растений
-    GameMaster.add_plant(player, Plum())
-    GameMaster.add_plant(player, Cherry())
-    GameMaster.add_plant(player, Apple())
-    GameMaster.add_plant(player, Cherry())
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -254,6 +268,9 @@ if __name__ == '__main__':
         step = input()
         match step:
             case '':
+                age_all()
+            case '1':
+                planting()
                 age_all()
             case '2':
                 watering()
