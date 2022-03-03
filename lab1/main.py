@@ -62,6 +62,7 @@ class Plant:  # Базовый класс
     name = 'Plant'
     mods: float = 1.0  # Шанс на то, что растение даст урожай
     is_droughted = False
+    has_colorado_beatle = False
     id = None
 
 
@@ -181,6 +182,7 @@ class Events(): # случайное событие, не зависящее о�
         for x in player.field.plants:
             if x.mods > 0.5:
                 x.mods -= 0.5
+                round(x.mods, 2)
                 x.is_droughted = True
             else:
                 x.mods = 0
@@ -191,10 +193,25 @@ class Events(): # случайное событие, не зависящее о�
         for x in player.field.plants:
             if x.is_droughted == True:
                 x.mods += 0.5
+                round(x.mods, 2)
                 x.is_droughted = False
 
     def colorado_beatle_start(self): # бьёт по картошке
-        pass
+        for x in player.field.plants:
+            if x.id == 4 and x.mods > 0.3:
+                x.mods -= 0.3
+                round(x.mods, 2)
+                x.has_colorado_beatle = True
+            elif x.id == 4 and x.mods <= 0.3:
+                x.mods = 0
+
+    def colorado_beatle_end(self):
+        for x in player.field.plants:
+            if x.id == 4 and x.has_colorado_beatle == True:
+                x.mods += 0.3
+                round(x.mods, 2)
+                x.has_colorado_beatle = False
+
 
     def muchnaya_rosa_start(self): # бьёт по деревьям
         pass
@@ -205,6 +222,7 @@ def watering():
     if player.field.plants[number].is_droughted:
         player.field.plants[number].is_droughted = False
         player.field.plants[number].mods += 0.5
+        round(player.field.plants[number].mods, 2)
         if player.field.plants[number].mods > 1.0:
             player.field.plants[number].mods = 1.0
 
@@ -239,6 +257,12 @@ if __name__ == '__main__':
                 age_all()
             case '2':
                 watering()
+                age_all()
+            case '3':
+                Events.colorado_beatle_start(event)
+                age_all()
+            case '4':
+                Events.colorado_beatle_end(event)
                 age_all()
             case _:
                 exit()
