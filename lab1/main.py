@@ -187,13 +187,14 @@ class Pepper(Vegetable):
     id = 7
 
 
-def age_all(): # Увеличивается процесс урожая ход
+def age_all():  # Увеличивается процесс урожая ход
     for x in GardenBed.plants:
         x.age()
 
 
-class Events(): # случайное событие, не зависящее от игрока
+class Events:  # случайное событие, не зависящее от игрока
     drought = False
+    colorado_attack = False
 
     def drought_start(self):  # бьёт по всем
         print("\nНачало засухи!")
@@ -215,25 +216,45 @@ class Events(): # случайное событие, не зависящее о�
                 round(x.mods, 2)
                 x.is_droughted = False
 
-    def colorado_beatle_start(self): # бьёт по картошке
+    def colorado_beatle_start(self):  # бьёт по картошке
+        self.colorado_attack = True
+        print("\nТревога! Атака колорадских жуков!")
         for x in player.field.plants:
-            if x.id == 4 and x.mods > 0.3:
+            if x.id == 4 and x.mods > 0.3 and not x.has_colorado_beatle:
                 x.mods -= 0.3
                 round(x.mods, 2)
                 x.has_colorado_beatle = True
-            elif x.id == 4 and x.mods <= 0.3:
+            elif x.id == 4 and x.mods <= 0.3 and not x.has_colorado_beatle:
                 x.mods = 0
 
     def colorado_beatle_end(self):
+        self.colorado_attack = False
+        print("\nКолорадские жуки отступают")
         for x in player.field.plants:
-            if x.id == 4 and x.has_colorado_beatle == True:
+            if x.id == 4 and x.has_colorado_beatle:
                 x.mods += 0.3
                 round(x.mods, 2)
                 x.has_colorado_beatle = False
+                if x.mods > 1.0:
+                    x.mods = 1.0
 
 
     def muchnaya_rosa_start(self): # бьёт по деревьям
         pass
+
+    def start_disasters(self):
+        if random.random() < 0.15 and not event.drought:
+            Events.drought_start(event)
+        else:
+            if random.random() < 0.05 and event.drought:
+                Events.drought_end(event)
+
+        if random.random() < 0.25 and not event.colorado_attack:
+            Events.colorado_beatle_start(event)
+        else:
+            if random.random() < 0.20 and event.colorado_attack:
+                Events.colorado_beatle_end(event)
+
 
 
 def watering():
@@ -250,7 +271,7 @@ def planting():
                        "\n3 - вишня\n4 - слива\n5 - картофель\n6 - морковь\n7 - капуста\n8 - перец\n\n")) - 1
     GameMaster.add_plant_based_on_id(player, number)
 
-# Press the green button in the gutter to run the script.
+
 if __name__ == '__main__':
     player = GameMaster()
     event = Events()
@@ -258,12 +279,7 @@ if __name__ == '__main__':
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         player.update_screen()
-        if random.random() < 0.15 and event.drought == False:
-            Events.drought_start(event)
-        else:
-            if random.random() < 0.05 and event.drought == True:
-                Events.drought_end(event)
-
+        event.start_disasters()
         print("\n\n\n1 - высадка растений\n2 - поливка растений\n3 - прополка грядок")
         step = input()
         match step:
@@ -275,23 +291,13 @@ if __name__ == '__main__':
             case '2':
                 watering()
                 age_all()
-            case '3':
-                Events.colorado_beatle_start(event)
-                age_all()
-            case '4':
-                Events.colorado_beatle_end(event)
-                age_all()
             case _:
                 exit()
 
-
-
-
 # прополка
-# поливка
 
 # события это класс, в котором есть флажки и методы
 # методы понижают модификатор каждого растения
 # события имеют рандомную продолжительность, после которой они заканчиваются и модификаторы возвращаются в норму
 # поливать можно отдельные грядки, это снимет их флажок и восстановит модификатор
-# по завершению события метод проъодит по всем растениям и повышает модификатор у тех, у кого остался флажок
+# по завершению события метод проходит по всем растениям и повышает модификатор у тех, у кого остался флажок
