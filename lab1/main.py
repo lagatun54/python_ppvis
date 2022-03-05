@@ -1,5 +1,6 @@
 import random
 import os
+import numpy as np
 
 
 class GardenBed:  # Сад, здесь просто список растений
@@ -82,6 +83,7 @@ class Plant:  # Базовый класс
     mods: float = 1.0  # Шанс на то, что растение даст урожай
     is_droughted = False
     has_colorado_beatle = False
+    diseases = False
     id = None
 
 
@@ -195,6 +197,8 @@ def age_all():  # Увеличивается процесс урожая ход
 class Events:  # случайное событие, не зависящее от игрока
     drought = False
     colorado_attack = False
+    illness = False
+    idDiseass = 0
 
     def drought_start(self):  # бьёт по всем
         print("\nНачало засухи!")
@@ -202,18 +206,18 @@ class Events:  # случайное событие, не зависящее от
         for x in player.field.plants:
             if x.mods > 0.5:
                 x.mods -= 0.5
-                round(x.mods, 2)
+                x.mods = np.around(x.mods, 2)
                 x.is_droughted = True
             else:
-                x.mods = 0
+                x.mods = 0.0
 
     def drought_end(self):  # бьёт по всем
         self.drought = False
         print("\nКонец засухи!")
         for x in player.field.plants:
-            if x.is_droughted == True:
+            if x.is_droughted:
                 x.mods += 0.5
-                round(x.mods, 2)
+                x.mods = np.around(x.mods, 2)
                 x.is_droughted = False
 
     def colorado_beatle_start(self):  # бьёт по картошке
@@ -222,10 +226,10 @@ class Events:  # случайное событие, не зависящее от
         for x in player.field.plants:
             if x.id == 4 and x.mods > 0.3 and not x.has_colorado_beatle:
                 x.mods -= 0.3
-                round(x.mods, 2)
+                x.mods = np.around(x.mods, 2)
                 x.has_colorado_beatle = True
             elif x.id == 4 and x.mods <= 0.3 and not x.has_colorado_beatle:
-                x.mods = 0
+                x.mods = 0.0
 
     def colorado_beatle_end(self):
         self.colorado_attack = False
@@ -233,38 +237,75 @@ class Events:  # случайное событие, не зависящее от
         for x in player.field.plants:
             if x.id == 4 and x.has_colorado_beatle:
                 x.mods += 0.3
-                round(x.mods, 2)
+                x.mods = np.around(x.mods, 3)
                 x.has_colorado_beatle = False
                 if x.mods > 1.0:
                     x.mods = 1.0
 
-
-    def muchnaya_rosa_start(self): # бьёт по деревьям
+    # бьёт по деревьям
+    def muchnaya_rosa_start(self):
         pass
 
-    def start_disasters(self):
+    def rainy(self):
+        print("\nПошёл дождь")
+        self.drought = True
+        for x in player.field.plants:
+            if x.is_droughted:
+                x.mods = 1.05
+                x.mods = np.around(x.mods, 3)
+                x.is_droughted = False
+
+    def disease_start(self):
+        print("\n")
+        self.illness = True
+        diseass = random.randint(1, 8)
+        print("\nНашествие болезни на определённый вид растения")
+        for x in player.field.plants:
+            if x.id == diseass:
+                self.idDiseass = diseass
+                x.mods -= 0.15
+                x.mods = np.around(x.mods, 3)
+                x.diseases = True
+
+    def disease_end(self):
+        print("\n")
+        print("\n Нет болезни")
+        self.illness = False
+        for x in player.field.plants:
+            if x.id == self.idDiseass and x.diseases:
+                x.mods += 0.15
+                x.mods = np.around(x.mods, 3)
+                x.diseases = False
+            elif x.id == self.idDiseass and not x.diseases:
+                pass
+
+    @staticmethod
+    def start_disasters():
         if random.random() < 0.15 and not event.drought:
             Events.drought_start(event)
-        else:
-            if random.random() < 0.05 and event.drought:
-                Events.drought_end(event)
-
+        elif random.random() < 0.05 and event.drought:
+            Events.drought_end(event)
+        elif random.random() < 0.30 and event.rainy and event.drought:
+            Events.rainy(event)
         if random.random() < 0.25 and not event.colorado_attack:
             Events.colorado_beatle_start(event)
-        else:
-            if random.random() < 0.20 and event.colorado_attack:
-                Events.colorado_beatle_end(event)
+        elif random.random() < 0.20 and event.colorado_attack:
+            Events.colorado_beatle_end(event)
+        if random.random() < 0.15 and not event.illness:
+            Events.disease_start(event)
+        elif random.random() < 0.15 and event.illness:
+            Events.disease_end(event)
 
 
-
-def watering():
+def watering(self):
     number = int(input("Введите номер грядки: ")) - 1
-    if player.field.plants[number].is_droughted:
-        player.field.plants[number].is_droughted = False
-        player.field.plants[number].mods += 0.5
-        round(player.field.plants[number].mods, 2)
-        if player.field.plants[number].mods > 1.0:
-            player.field.plants[number].mods = 1.0
+    if self.field.plants[number].is_droughted:
+        self.field.plants[number].is_droughted = False
+        self.field.plants[number].mods += 0.5
+        self.field.plants[number].mods = np.around(self.field.plants[number].mods, 2)
+        if self.field.plants[number].mods > 1.0:
+            self.field.plants[number].mods = 1.0
+
 
 def planting():
     number = int(input("Введите номер растения, которое хотите высадить:\n1 - яблоня\n2 - груша"
@@ -289,7 +330,7 @@ if __name__ == '__main__':
                 planting()
                 age_all()
             case '2':
-                watering()
+                watering(player)
                 age_all()
             case _:
                 exit()
