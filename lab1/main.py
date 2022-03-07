@@ -13,6 +13,7 @@ class GardenBed:  # Сад, здесь просто список растени�
 
 class Warehouse:  # Склад, тут будем хранить кол-во всех растений
     contents = [0, 0, 0, 0, 0, 0, 0, 0]
+    namelist = ["яблони", "груши", "вишни", "сливы", "картофель", "морковь", "капуста", "перец"]
     """
     apples
     pears
@@ -74,6 +75,7 @@ class GameMaster:
         self.field.display_garden()
         print("\nСКЛАД")
         self.storage.display_warehouse()
+        print()
 
 
 class Plant:  # Базовый класс
@@ -198,10 +200,11 @@ class Events:  # случайное событие, не зависящее от
     drought = False
     colorado_attack = False
     illness = False
-    idDiseass = 0
+    rainy = False
+    idDisease = -1
 
     def drought_start(self):  # бьёт по всем
-        print("\nНачало засухи!")
+        print("Начало засухи!")
         self.drought = True
         for x in player.field.plants:
             if x.mods > 0.5:
@@ -213,7 +216,7 @@ class Events:  # случайное событие, не зависящее от
 
     def drought_end(self):  # бьёт по всем
         self.drought = False
-        print("\nКонец засухи!")
+        print("Конец засухи!")
         for x in player.field.plants:
             if x.is_droughted:
                 x.mods += 0.5
@@ -222,7 +225,7 @@ class Events:  # случайное событие, не зависящее от
 
     def colorado_beatle_start(self):  # бьёт по картошке
         self.colorado_attack = True
-        print("\nТревога! Атака колорадских жуков!")
+        print("Тревога! Атака колорадских жуков!")
         for x in player.field.plants:
             if x.id == 4 and x.mods > 0.3 and not x.has_colorado_beatle:
                 x.mods -= 0.3
@@ -233,7 +236,7 @@ class Events:  # случайное событие, не зависящее от
 
     def colorado_beatle_end(self):
         self.colorado_attack = False
-        print("\nКолорадские жуки отступают")
+        print("Колорадские жуки отступают")
         for x in player.field.plants:
             if x.id == 4 and x.has_colorado_beatle:
                 x.mods += 0.3
@@ -242,55 +245,59 @@ class Events:  # случайное событие, не зависящее от
                 if x.mods > 1.0:
                     x.mods = 1.0
 
-    # бьёт по деревьям
-    def muchnaya_rosa_start(self):
-        pass
-
-    def rainy(self):
-        print("\nПошёл дождь")
-        self.drought = True
+    def rain_start(self):
+        print("Пошёл дождь.")
+        self.rainy = True
         for x in player.field.plants:
-            if x.is_droughted:
-                x.mods = 1.05
-                x.mods = np.around(x.mods, 3)
-                x.is_droughted = False
+            x.mods += 0.05
+            x.mods = np.around(x.mods, 3)
+
+    def rain_end(self):
+        print("Конец дождя.")
+        self.rainy = False
+        for x in player.field.plants:
+            x.mods -= 0.05
+            x.mods = np.around(x.mods, 3)
 
     def disease_start(self):
-        print("\n")
         self.illness = True
-        diseass = random.randint(1, 8)
-        print("\nНашествие болезни на определённый вид растения")
+        disease = random.randint(0, 7)
+        self.idDisease = disease
+        print("Болезнь пришла по " + player.storage.namelist[self.idDisease])
         for x in player.field.plants:
-            if x.id == diseass:
-                self.idDiseass = diseass
+            if x.id == disease:
                 x.mods -= 0.15
                 x.mods = np.around(x.mods, 3)
                 x.diseases = True
 
     def disease_end(self):
-        print("\n")
-        print("\n Нет болезни")
+        print("Болезнь вида " + player.storage.namelist[self.idDisease] + " закончилась")
         self.illness = False
         for x in player.field.plants:
-            if x.id == self.idDiseass and x.diseases:
+            if x.id == self.idDisease and x.diseases:
                 x.mods += 0.15
                 x.mods = np.around(x.mods, 3)
                 x.diseases = False
-            elif x.id == self.idDiseass and not x.diseases:
+            elif x.id == self.idDisease and not x.diseases:
                 pass
 
     @staticmethod
     def start_disasters():
-        if random.random() < 0.15 and not event.drought:
+        if random.random() < 0.15 and not event.drought and not event.rainy:
             Events.drought_start(event)
         elif random.random() < 0.05 and event.drought:
             Events.drought_end(event)
-        elif random.random() < 0.30 and event.rainy and event.drought:
-            Events.rainy(event)
+        if random.random() < 0.30 and not event.rainy:
+            Events.rain_start(event)
+            if event.drought:
+                Events.drought_end(event)
+        elif random.random() < 0.30 and event.rainy:
+            Events.rain_end(event)
         if random.random() < 0.25 and not event.colorado_attack:
             Events.colorado_beatle_start(event)
         elif random.random() < 0.20 and event.colorado_attack:
             Events.colorado_beatle_end(event)
+
         if random.random() < 0.15 and not event.illness:
             Events.disease_start(event)
         elif random.random() < 0.15 and event.illness:
