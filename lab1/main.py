@@ -8,7 +8,7 @@ class GardenBed:  # Сад, здесь просто список растени�
 
     def display_garden(self):
         for i in self.plants:
-            i.show_plant_status()
+            i.show_plant_status(player)
 
 
 class Warehouse:  # Склад, тут будем хранить кол-во всех растений
@@ -48,6 +48,21 @@ class GameMaster:
     field = GardenBed()
     storage = Warehouse()
 
+    def watering(self):
+        number = int(input("Введите номер грядки: ")) - 1
+        if number > len(self.field.plants) or number < 0:
+            return
+        if self.field.plants[number].is_droughted:
+            self.field.plants[number].is_droughted = False
+            self.field.plants[number].mods += 0.5
+            self.field.plants[number].mods = np.around(self.field.plants[number].mods, 3)
+        if self.field.plants[number].mods > 1.0:
+            self.field.plants[number].mods = 1.0
+
+    def age_all(self):  # Увеличивается процесс урожая ход
+        for x in self.field.plants:
+            x.age(player)
+
     def add_plant(self, plant_name):
         self.field.plants.append(plant_name)
 
@@ -70,10 +85,29 @@ class GameMaster:
             case 7:
                 self.add_plant(Pepper())
 
+    def planting(self):
+        number = int(input("Введите номер растения, которое хотите высадить:\n1 - яблоня\n2 - груша"
+                       "\n3 - вишня\n4 - слива\n5 - картофель\n6 - морковь\n7 - капуста\n8 - перец\n\n")) - 1
+        if number > 7 or number < 0:
+           return
+        #exception
+        else:
+            self.add_plant_based_on_id(number)
+
+    def weeding(self):
+        number = int(input("Введите номер грядки, которую хотите прополоть: ")) - 1
+        if number > len(self.field.plants) or number < 0:
+            return
+        self.field.plants[number].weeded = False
+        self.field.plants[number].mods += 0.2
+        self.field.plants[number].mods = np.around(self.field.plants[number].mods, 3)
+        if self.field.plants[number].mods >= 1.0:
+            self.field.plants[number].mods = 1.0
+
     def update_screen(self):
         print("ГРЯДКИ")
         self.field.display_garden()
-        print("\nСКЛАД")
+        print("\n\nСКЛАД")
         self.storage.display_warehouse()
         print()
 
@@ -86,6 +120,7 @@ class Plant:  # Базовый класс
     is_droughted = False
     has_colorado_beatle = False
     diseases = False
+    weeded = False
     id = None
 
 
@@ -93,18 +128,21 @@ class Tree(Plant):  # Класс дерева
     growth_progress = 0
     growth_max = 0
 
-    def show_plant_status(self):
-        for x in range(0, len(player.field.plants)):
-            if player.field.plants[x] == self:
-                print(str(x + 1) + ": ",  sep='', end='')
+    def show_plant_status(self, target: GameMaster):
+        for x in range(0, len(target.field.plants)):
+            if target.field.plants[x] == self:
+                print("\n" + str(x + 1) + ": ",  sep='', end='')
 
         if self.growth_progress < self.growth_max:
-            print(self.name + ". Рост дерева: " + str(self.growth_progress) + "/" + str(self.growth_max))
+            print(self.name + ". Рост дерева: " + str(self.growth_progress) + "/" + str(self.growth_max), sep='',
+                  end='')
         else:
             print(self.name + ". Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
-                  str(self.mods * 100) + "%)")
+                  str(self.mods * 100) + "%)", sep='', end='')
+        if self.weeded:
+            print(" | ЗАХВАЧЕНО СОРНЯКАМИ", sep='', end='')
 
-    def age(self):
+    def age(self, target: GameMaster):
         if self.growth_progress < self.growth_max:
             self.growth_progress += 1
         else:
@@ -113,24 +151,26 @@ class Tree(Plant):  # Класс дерева
             if self.harvest_progress == self.harvest_max:
                 self.harvest_progress = 0
                 if random.random() < self.mods:
-                    player.storage.contents[self.id] += 1
+                    target.storage.contents[self.id] += 1
 
 
 class Vegetable(Plant):  # Класс овощей
-    def show_plant_status(self):
-        for x in range(0, len(player.field.plants)):
-            if player.field.plants[x] == self:
-                print(str(x + 1) + ": ", sep='', end='')
+    def show_plant_status(self, target: GameMaster):
+        for x in range(0, len(target.field.plants)):
+            if target.field.plants[x] == self:
+                print("\n" + str(x + 1) + ": ", sep='', end='')
         print(self.name + ". Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
-              str(self.mods * 100) + "%)")
+              str(self.mods * 100) + "%)", sep='', end='')
+        if self.weeded:
+            print(" | ЗАХВАЧЕНО СОРНЯКАМИ", sep='', end='')
 
-    def age(self):
+    def age(self, target: GameMaster):
         if self.harvest_progress < self.harvest_max:
             self.harvest_progress += 1
         if self.harvest_progress == self.harvest_max:
             self.harvest_progress = 0
             if random.random() < self.mods:
-                player.storage.contents[self.id] += 1
+                target.storage.contents[self.id] += 1
 
 
 # FRUIT TREES
@@ -191,11 +231,6 @@ class Pepper(Vegetable):
     id = 7
 
 
-def age_all():  # Увеличивается процесс урожая ход
-    for x in GardenBed.plants:
-        x.age()
-
-
 class Events:  # случайное событие, не зависящее от игрока
     drought = False
     colorado_attack = False
@@ -203,10 +238,11 @@ class Events:  # случайное событие, не зависящее от
     rainy = False
     idDisease = -1
 
-    def drought_start(self):  # бьёт по всем
+    @staticmethod
+    def drought_start(target: GameMaster):  # бьёт по всем
         print("Начало засухи!")
-        self.drought = True
-        for x in player.field.plants:
+        Events.drought = True
+        for x in target.field.plants:
             if x.mods > 0.5:
                 x.mods -= 0.5
                 x.mods = np.around(x.mods, 2)
@@ -214,30 +250,34 @@ class Events:  # случайное событие, не зависящее от
             else:
                 x.mods = 0.0
 
-    def drought_end(self):  # бьёт по всем
-        self.drought = False
+    @staticmethod
+    def drought_end(target: GameMaster):  # бьёт по всем
+        Events.drought = False
         print("Конец засухи!")
-        for x in player.field.plants:
+        for x in target.field.plants:
             if x.is_droughted:
                 x.mods += 0.5
-                x.mods = np.around(x.mods, 2)
+                x.mods = np.around(x.mods, 3)
                 x.is_droughted = False
 
-    def colorado_beatle_start(self):  # бьёт по картошке
-        self.colorado_attack = True
+    @staticmethod
+    def colorado_beatle_start(target: GameMaster):  # бьёт по картошке
+        Events.colorado_attack = True
         print("Тревога! Атака колорадских жуков!")
-        for x in player.field.plants:
+        for x in target.field.plants:
             if x.id == 4 and x.mods > 0.3 and not x.has_colorado_beatle:
                 x.mods -= 0.3
                 x.mods = np.around(x.mods, 2)
                 x.has_colorado_beatle = True
             elif x.id == 4 and x.mods <= 0.3 and not x.has_colorado_beatle:
                 x.mods = 0.0
+                x.has_colorado_beatle = True
 
-    def colorado_beatle_end(self):
-        self.colorado_attack = False
+    @staticmethod
+    def colorado_beatle_end(target: GameMaster):
+        Events.colorado_attack = False
         print("Колорадские жуки отступают")
-        for x in player.field.plants:
+        for x in target.field.plants:
             if x.id == 4 and x.has_colorado_beatle:
                 x.mods += 0.3
                 x.mods = np.around(x.mods, 3)
@@ -245,100 +285,102 @@ class Events:  # случайное событие, не зависящее от
                 if x.mods > 1.0:
                     x.mods = 1.0
 
-    def rain_start(self):
+    @staticmethod
+    def rain_start(target: GameMaster):
         print("Пошёл дождь.")
-        self.rainy = True
-        for x in player.field.plants:
+        Events.rainy = True
+        for x in target.field.plants:
             x.mods += 0.05
             x.mods = np.around(x.mods, 3)
 
-    def rain_end(self):
+    @staticmethod
+    def rain_end(target: GameMaster):
         print("Конец дождя.")
-        self.rainy = False
-        for x in player.field.plants:
+        Events.rainy = False
+        for x in target.field.plants:
             x.mods -= 0.05
             x.mods = np.around(x.mods, 3)
 
-    def disease_start(self):
-        self.illness = True
-        disease = random.randint(0, 7)
-        self.idDisease = disease
-        print("Болезнь пришла по " + player.storage.namelist[self.idDisease])
-        for x in player.field.plants:
-            if x.id == disease:
-                x.mods -= 0.15
-                x.mods = np.around(x.mods, 3)
-                x.diseases = True
-
-    def disease_end(self):
-        print("Болезнь вида " + player.storage.namelist[self.idDisease] + " закончилась")
-        self.illness = False
-        for x in player.field.plants:
-            if x.id == self.idDisease and x.diseases:
-                x.mods += 0.15
-                x.mods = np.around(x.mods, 3)
-                x.diseases = False
-            elif x.id == self.idDisease and not x.diseases:
-                pass
+    # def disease_start():
+    #     illness = True
+    #     disease = random.randint(0, 7)
+    #     idDisease = disease
+    #     print("Болезнь пришла по " + player.storage.namelist[idDisease])
+    #     for x in player.field.plants:
+    #         if x.id == disease:
+    #             x.mods -= 0.15
+    #             if x.mods < 0:
+    #                 x.mods = 0.0
+    #             x.mods = np.around(x.mods, 3)
+    #             x.diseases = True
+    #         elif x.id == idDisease and x.diseases:
+    #             x.mods += 0.15
+    #             x.mods = np.around(x.mods, 3)
+    #             x.diseases = False
+    #             print("Болезнь вида " + player.storage.namelist[idDisease] + " закончилась")
 
     @staticmethod
-    def start_disasters():
-        if random.random() < 0.15 and not event.drought and not event.rainy:
-            Events.drought_start(event)
-        elif random.random() < 0.05 and event.drought:
-            Events.drought_end(event)
-        if random.random() < 0.30 and not event.rainy:
-            Events.rain_start(event)
-            if event.drought:
-                Events.drought_end(event)
-        elif random.random() < 0.30 and event.rainy:
-            Events.rain_end(event)
-        if random.random() < 0.25 and not event.colorado_attack:
-            Events.colorado_beatle_start(event)
-        elif random.random() < 0.20 and event.colorado_attack:
-            Events.colorado_beatle_end(event)
+    def weed_infestation(target: GameMaster):
+        weed_place = random.randint(0, len(target.field.plants) - 1)
+        if target.field.plants[weed_place].weeded:
+            return
+        target.field.plants[weed_place].weeded = True
+        print(target.field.plants[weed_place].name + " под номером " + str(weed_place + 1) +
+              " подвергается атаке сорняков")
+        if target.field.plants[weed_place].mods >= 0.2:
+            target.field.plants[weed_place].mods -= 0.2
+            target.field.plants[weed_place].mods = np.around(target.field.plants[weed_place].mods, 3)
+        else:
+            target.field.plants[weed_place].mods = 0.0
 
-        if random.random() < 0.15 and not event.illness:
-            Events.disease_start(event)
-        elif random.random() < 0.15 and event.illness:
-            Events.disease_end(event)
-
-
-def watering(self):
-    number = int(input("Введите номер грядки: ")) - 1
-    if self.field.plants[number].is_droughted:
-        self.field.plants[number].is_droughted = False
-        self.field.plants[number].mods += 0.5
-        self.field.plants[number].mods = np.around(self.field.plants[number].mods, 2)
-        if self.field.plants[number].mods > 1.0:
-            self.field.plants[number].mods = 1.0
-
-
-def planting():
-    number = int(input("Введите номер растения, которое хотите высадить:\n1 - яблоня\n2 - груша"
-                       "\n3 - вишня\n4 - слива\n5 - картофель\n6 - морковь\n7 - капуста\n8 - перец\n\n")) - 1
-    GameMaster.add_plant_based_on_id(player, number)
+    @staticmethod
+    def start_disasters(target: GameMaster):
+        if len(target.field.plants) == 0:
+            return
+        if random.random() < 0.15 and not Events.drought and not Events.rainy:
+            Events.drought_start(target)
+        elif random.random() < 0.05 and Events.drought:
+            Events.drought_end(target)
+        if random.random() < 0.30 and not Events.rainy:
+            Events.rain_start(target)
+            if Events.drought:
+                Events.drought_end(target)
+        elif random.random() < 0.30 and Events.rainy:
+            Events.rain_end(target)
+        if random.random() < 0.25 and not Events.colorado_attack:
+            Events.colorado_beatle_start(target)
+        elif random.random() < 0.20 and Events.colorado_attack:
+            Events.colorado_beatle_end(target)
+        # if random.random() < 0.15 and not Events.illness:
+        #     Events.disease_start()
+        # elif random.random() < 0.15 and Events.illness:
+        #     Events.disease_end()
+        chance = random.random()
+        if (chance < 0.35 and not Events.rainy) or (chance < 0.55 and Events.rainy):
+            Events.weed_infestation(target)
 
 
 if __name__ == '__main__':
     player = GameMaster()
-    event = Events()
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         player.update_screen()
-        event.start_disasters()
+        Events.start_disasters(player)
         print("\n\n\n1 - высадка растений\n2 - поливка растений\n3 - прополка грядок")
         step = input()
         match step:
             case '':
-                age_all()
+                player.age_all()
             case '1':
-                planting()
-                age_all()
+                player.planting()
+                player.age_all()
             case '2':
-                watering(player)
-                age_all()
+                player.watering()
+                player.age_all()
+            case '3':
+                player.weeding()
+                player.age_all()
             case _:
                 exit()
 
@@ -349,3 +391,10 @@ if __name__ == '__main__':
 # события имеют рандомную продолжительность, после которой они заканчиваются и модификаторы возвращаются в норму
 # поливать можно отдельные грядки, это снимет их флажок и восстановит модификатор
 # по завершению события метод проходит по всем растениям и повышает модификатор у тех, у кого остался флажок
+
+
+"""
+Статика существует не в контексте объекта, а в контексте класса! Из этого вытекает то, что на протяжении всего жизненного цикла вашего кода будет существовать лишь одно глобальное состояние статических членов класса.
+
+Использовать статику нужно в случае, если то, что вы ей описываете принадлежит всей группе объектов, а не одному. Например, у класса Human может быть статический метод numberOfLegs(), который возвращает количество ног у людей. Количество ног - это общее свойство для всех людей (Речь идет о здоровых людях). В данном случае можно было использовать константу класса, но это не так важно, ведь, по сути, константа - это тоже статический контекст. А вот имя - это уже свойство каждого отдельного человека. 
+"""
