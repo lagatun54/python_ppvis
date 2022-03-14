@@ -4,14 +4,13 @@ from valley import *
 
 if __name__ == '__main__':
     player = GameMaster()
-
     player.import_plants()
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         player.update_screen()
         Events.start_disasters(player)
-        print("\n\n\n1 - высадка растений\n2 - поливка растений\n3 - прополка грядок")
+        print("\n\n\n1 - высадка растений\n2 - поливка растений\n3 - прополка грядок\n9 - снести поле комбайном")
         step = input()
         match step:
             case '':
@@ -25,7 +24,7 @@ if __name__ == '__main__':
             case '3':
                 player.weeding()
                 player.age_all()
-            case '4':
+            case '9':
                 player.storage.nullify_warehouse()
                 player.nullify_field()
                 player.age_all()
