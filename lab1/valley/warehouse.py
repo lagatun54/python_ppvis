@@ -7,6 +7,7 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
 
     with open("D:\\Projects\\2course\\ppvis\\sem2\\laba1\\lab1\\warehouse.json", 'r', encoding='utf-8') as f:
         house = json.loads(f.read())
+        f.close()
 
     def nullify_warehouse(self):
         self.house = {
@@ -39,3 +40,4 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
             print("Перец: ", self.house.get("Перец"))
         with open(r'D:\Projects\2course\ppvis\sem2\laba1\lab1\warehouse.json', 'w', encoding='utf-8') as f:
             json.dump(self.house, f, ensure_ascii=False, indent=2)
+            f.close()

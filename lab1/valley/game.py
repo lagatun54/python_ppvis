@@ -78,20 +78,25 @@ class GameMaster(Warehouse, GardenBed):
         print()
 
     def import_plants(self):
-        with open(r'D:\Projects\2course\ppvis\sem2\laba1\lab1\field.json', 'r', encoding='utf-8') as f:
-            house1 = json.loads(f.read())
-            self.field.plants.clear()
-            for i in range(0, len(house1)):
-                current_plant: dict = house1.get(str(i))
-                self.add_plant_based_on_id(current_plant.get("id"))
-                self.field.plants[i].mods = current_plant.get("mods")
-                self.field.plants[i].harvest_progress = current_plant.get("harvest_progress")
-                self.field.plants[i].growth_progress = current_plant.get("growth_progress")
-                self.field.plants[i].id = current_plant.get("id")
-                self.field.plants[i].is_droughted = current_plant.get("is_droughted")
-                self.field.plants[i].weeded = current_plant.get("weeded")
-                self.field.plants[i].diseases = current_plant.get("diseases")
-                self.field.plants[i].has_colorado_beatle = current_plant.get("has_colorado_beatle")
+        try:
+            with open(r'D:\Projects\2course\ppvis\sem2\laba1\lab1\field.json', 'r', encoding='utf-8') as f:
+                house1 = json.loads(f.read())
+                f.close()
+        except OSError:
+            print("Не удалось открыть файл!")
+            return
+        self.field.plants.clear()
+        for i in range(0, len(house1)):
+            current_plant: dict = house1.get(str(i))
+            self.add_plant_based_on_id(current_plant.get("id"))
+            self.field.plants[i].mods = current_plant.get("mods")
+            self.field.plants[i].harvest_progress = current_plant.get("harvest_progress")
+            self.field.plants[i].growth_progress = current_plant.get("growth_progress")
+            self.field.plants[i].id = current_plant.get("id")
+            self.field.plants[i].is_droughted = current_plant.get("is_droughted")
+            self.field.plants[i].weeded = current_plant.get("weeded")
+            self.field.plants[i].diseases = current_plant.get("diseases")
+            self.field.plants[i].has_colorado_beatle = current_plant.get("has_colorado_beatle")
 
     def export_plants(self):
         gamefield: dict = {}
@@ -109,6 +114,7 @@ class GameMaster(Warehouse, GardenBed):
 
         with open(r'D:\Projects\2course\ppvis\sem2\laba1\lab1\field.json', 'w', encoding='utf-8') as f:
             json.dump(gamefield, f, ensure_ascii=False, indent=2)
+            f.close()
 
     def nullify_field(self):
         self.field.plants.clear()
@@ -127,7 +133,7 @@ class Plant:  # Базовый класс
         diseases: bool = False
         weeded: bool = False
         id: None
-        plods: str ='Plods'
+        plods: str = 'Plods'
 
 
 class Tree(Plant, GameMaster):  # Класс дерева
