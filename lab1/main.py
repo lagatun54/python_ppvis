@@ -25,6 +25,10 @@ if __name__ == '__main__':
             case '3':
                 player.weeding()
                 player.age_all()
+            case '4':
+                player.storage.nullify_warehouse()
+                player.nullify_field()
+                player.age_all()
             case _:
                 exit()
 

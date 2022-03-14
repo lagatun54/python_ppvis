@@ -23,6 +23,7 @@ class GameMaster(Warehouse, GardenBed):
     def age_all(self):  # Увеличивается процесс урожая ход
         for x in self.field.plants:
             x.age(self)
+        self.export_plants()
 
     def add_plant(self, plant_name):
         self.field.plants.append(plant_name)
@@ -82,7 +83,7 @@ class GameMaster(Warehouse, GardenBed):
             self.field.plants.clear()
             for i in range(0, len(house1)):
                 current_plant: dict = house1.get(str(i))
-                self.add_plant_based_on_id(i)
+                self.add_plant_based_on_id(current_plant.get("id"))
                 self.field.plants[i].mods = current_plant.get("mods")
                 self.field.plants[i].harvest_progress = current_plant.get("harvest_progress")
                 self.field.plants[i].growth_progress = current_plant.get("growth_progress")
@@ -92,10 +93,33 @@ class GameMaster(Warehouse, GardenBed):
                 self.field.plants[i].diseases = current_plant.get("diseases")
                 self.field.plants[i].has_colorado_beatle = current_plant.get("has_colorado_beatle")
 
+    def export_plants(self):
+        gamefield: dict = {}
+        for i in range(0, len(self.field.plants)):
+            current_plant: dict = {}
+            current_plant["id"] = self.field.plants[i].id
+            current_plant["mods"] = self.field.plants[i].mods
+            current_plant["harvest_progress"] = self.field.plants[i].harvest_progress
+            current_plant["growth_progress"] = self.field.plants[i].growth_progress
+            current_plant["is_droughted"] = self.field.plants[i].is_droughted
+            current_plant["weeded"] = self.field.plants[i].weeded
+            current_plant["diseases"] = self.field.plants[i].diseases
+            current_plant["has_colorado_beatle"] = self.field.plants[i].has_colorado_beatle
+            gamefield[str(i)] = current_plant
+
+        with open(r'D:\Projects\2course\ppvis\sem2\laba1\lab1\field.json', 'w', encoding='utf-8') as f:
+            json.dump(gamefield, f, ensure_ascii=False, indent=2)
+
+    def nullify_field(self):
+        self.field.plants.clear()
+
+
 
 class Plant:  # Базовый класс
         harvest_progress: int = 0
         harvest_max: int = 0
+        growth_progress = 0
+        growth_max = 0
         name: 'Plant'
         mods:  float = 1.0  # Шанс на то, что растение даст урожай
         is_droughted:  bool = False
@@ -107,9 +131,6 @@ class Plant:  # Базовый класс
 
 
 class Tree(Plant, GameMaster):  # Класс дерева
-    growth_progress = 0
-    growth_max = 0
-
     def show_plant_status(self, target: GameMaster):
         for x in range(0, len(target.field.plants)):
             if target.field.plants[x] == self:
