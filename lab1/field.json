@@ -1,0 +1,72 @@
+{
+  "0": {
+    "id": 0,
+    "mods": 0.8,
+    "harvest_progress": 1,
+    "growth_progress": 5,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": true,
+    "has_colorado_beatle": false
+  },
+  "1": {
+    "id": 0,
+    "mods": 0.85,
+    "harvest_progress": 0,
+    "growth_progress": 5,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": true,
+    "has_colorado_beatle": false
+  },
+  "2": {
+    "id": 0,
+    "mods": 0.8,
+    "harvest_progress": 1,
+    "growth_progress": 5,
+    "is_droughted": false,
+    "weeded": true,
+    "diseases": true,
+    "has_colorado_beatle": false
+  },
+  "3": {
+    "id": 0,
+    "mods": 1.0,
+    "harvest_progress": 0,
+    "growth_progress": 5,
+    "is_droughted": false,
+    "weeded": false,
+    "diseases": true,
+    "has_colorado_beatle": false
+  },
+  "4": {
+    "id": 6,
+    "mods": 1.15,
+    "harvest_progress": 0,
+    "growth_progress": 0,
+    "is_droughted": false,
+    "weeded": false,
+    "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "5": {
+    "id": 0,
+    "mods": 1.15,
+    "harvest_progress": 1,
+    "growth_progress": 5,
+    "is_droughted": false,
+    "weeded": false,
+    "diseases": false,
+    "has_colorado_beatle": false
+  },
+  "6": {
+    "id": 3,
+    "mods": 1.0,
+    "harvest_progress": 0,
+    "growth_progress": 2,
+    "is_droughted": false,
+    "weeded": false,
+    "diseases": false,
+    "has_colorado_beatle": false
+  }
+}

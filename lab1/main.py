@@ -1,8 +1,11 @@
 import os
+import typer
 from valley import *
 
+app = typer.Typer()
 
-if __name__ == '__main__':
+@app.command()
+def main(step: str):
     player = GameMaster()
     player.import_plants()
 
@@ -11,26 +14,33 @@ if __name__ == '__main__':
         player.update_screen()
         Events.start_disasters(player)
         print("\n\n\n1 - высадка растений\n2 - поливка растений\n3 - прополка грядок\n9 - снести поле комбайном")
-        step = input()
         match step:
-            case '':
+            case '0':
                 player.age_all()
+                break
             case '1':
                 player.planting()
                 player.age_all()
+                break
             case '2':
                 player.watering()
                 player.age_all()
+                break
             case '3':
                 player.weeding()
                 player.age_all()
+                break
             case '9':
                 player.storage.nullify_warehouse()
                 player.nullify_field()
                 player.age_all()
+                break
             case _:
                 exit()
 
+
+if __name__ == '__main__':
+    app()
 # прополка
 
 # события это класс, в котором есть флажки и методы
