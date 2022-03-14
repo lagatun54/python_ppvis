@@ -5,6 +5,8 @@ from valley import *
 if __name__ == '__main__':
     player = GameMaster()
 
+    player.import_plants()
+
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
         player.update_screen()

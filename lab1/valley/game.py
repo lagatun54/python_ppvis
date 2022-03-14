@@ -8,8 +8,6 @@ import json
 class GameMaster(Warehouse, GardenBed):
     field = GardenBed()
     storage = Warehouse()
-    with open('sw_templates.json', 'r', encoding='utf-8') as f:
-        house = json.load(f)
 
     def watering(self):
         number = int(input("Введите номер грядки: ")) - 1
@@ -78,6 +76,22 @@ class GameMaster(Warehouse, GardenBed):
         self.storage.display_warehouse()
         print()
 
+    def import_plants(self):
+        with open(r'D:\Projects\2course\ppvis\sem2\laba1\lab1\field.json', 'r', encoding='utf-8') as f:
+            house1 = json.loads(f.read())
+            self.field.plants.clear()
+            for i in range(0, len(house1)):
+                current_plant: dict = house1.get(str(i))
+                self.add_plant_based_on_id(i)
+                self.field.plants[i].mods = current_plant.get("mods")
+                self.field.plants[i].harvest_progress = current_plant.get("harvest_progress")
+                self.field.plants[i].growth_progress = current_plant.get("growth_progress")
+                self.field.plants[i].id = current_plant.get("id")
+                self.field.plants[i].is_droughted = current_plant.get("is_droughted")
+                self.field.plants[i].weeded = current_plant.get("weeded")
+                self.field.plants[i].diseases = current_plant.get("diseases")
+                self.field.plants[i].has_colorado_beatle = current_plant.get("has_colorado_beatle")
+
 
 class Plant:  # Базовый класс
         harvest_progress: int = 0
@@ -90,6 +104,7 @@ class Plant:  # Базовый класс
         weeded: bool = False
         id: None
         plods: str ='Plods'
+
 
 class Tree(Plant, GameMaster):  # Класс дерева
     growth_progress = 0
@@ -174,7 +189,7 @@ class Plum(Tree):
     harvest_max = 2
     growth_max = 5
     name = 'Слива'
-    plods = 'Cливы'
+    plods = 'Сливы'
     id = 3
 
 

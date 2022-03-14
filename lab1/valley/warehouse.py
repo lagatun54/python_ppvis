@@ -3,7 +3,13 @@ import json
 
 class Warehouse:  # Склад, тут будем хранить кол-во всех растений
     namelist = ["яблони", "груши", "вишни", "сливы", "картофель", "морковь", "капуста", "перец"]
-    house = {
+    house: dict
+
+    with open("D:\\Projects\\2course\\ppvis\\sem2\\laba1\\lab1\\warehouse.json", 'r', encoding='utf-8') as f:
+        house = json.loads(f.read())
+
+    def nullify_warehouse(self):
+        self.house = {
         'Яблоки': 0,
         'Груши': 0,
         'Вишни': 0,
@@ -13,9 +19,6 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
         'Капуста': 0,
         'Перец': 0
     }
-
-    with open('warehouse.json', 'r', encoding='utf-8') as f:
-        house = json.load(f)
 
     def display_warehouse(self):
         if self.house.get("Яблоки") > 0:
@@ -34,5 +37,5 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
             print("Капуста: ", self.house.get("Капуста"))
         if self.house.get("Перец") > 0:
             print("Перец: ", self.house.get("Перец"))
-        with open('warehouse.json', 'w', encoding='utf-8') as f:
+        with open(r'D:\Projects\2course\ppvis\sem2\laba1\lab1\warehouse.json', 'w', encoding='utf-8') as f:
             json.dump(self.house, f, ensure_ascii=False, indent=2)
