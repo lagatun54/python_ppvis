@@ -5,9 +5,10 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
     namelist = ["яблони", "груши", "вишни", "сливы", "картофель", "морковь", "капуста", "перец"]
     house: dict
 
-    with open("D:\\Projects\\2course\\ppvis\\sem2\\laba1\\lab1\\warehouse.json", 'r', encoding='utf-8') as f:
-        house = json.loads(f.read())
-        f.close()
+    def import_warehouse(self):
+        with open("D:\\Projects\\2course\\ppvis\\sem2\\laba1\\lab1\\warehouse.json", 'r', encoding='utf-8') as f:
+            self.house = json.loads(f.read())
+            f.close()
 
     def nullify_warehouse(self):
         self.house = {

@@ -10,7 +10,10 @@ class GameMaster(Warehouse, GardenBed):
     storage = Warehouse()
 
     def watering(self):
-        number = int(input("Введите номер грядки: ")) - 1
+        try:
+            number = int(input("Введите номер грядки: ")) - 1
+        except:
+            return
         if number > len(self.field.plants) or number < 0:
             return
         if self.field.plants[number].is_droughted:
@@ -52,8 +55,11 @@ class GameMaster(Warehouse, GardenBed):
             i.show_plant_status(self)
 
     def planting(self):
-        number = int(input("Введите номер растения, которое хотите высадить:\n1 - яблоня\n2 - груша"
-                       "\n3 - вишня\n4 - слива\n5 - картофель\n6 - морковь\n7 - капуста\n8 - перец\n\n")) - 1
+        try:
+            number = int(input("Введите номер растения, которое хотите высадить:\n1 - яблоня\n2 - груша"
+                           "\n3 - вишня\n4 - слива\n5 - картофель\n6 - морковь\n7 - капуста\n8 - перец\n\n")) - 1
+        except:
+            return
         if number > 7 or number < 0:
            return
         #exception
@@ -61,7 +67,10 @@ class GameMaster(Warehouse, GardenBed):
             self.add_plant_based_on_id(number)
 
     def weeding(self):
-        number = int(input("Введите номер грядки, которую хотите прополоть: ")) - 1
+        try:
+            number = int(input("Введите номер грядки, которую хотите прополоть: ")) - 1
+        except:
+            return
         if number > len(self.field.plants) or number < 0:
             return
         self.field.plants[number].weeded = False

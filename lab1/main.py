@@ -1,10 +1,22 @@
 import os
+import sys
+import time
+
 from valley import *
 
 
 if __name__ == '__main__':
+    default_settings = ''
+    if len(sys.argv) != 1:
+        default_settings = str(sys.argv[1])
+
     player = GameMaster()
-    player.import_plants()
+
+    if default_settings != "new":
+        player.import_plants()
+        player.storage.import_warehouse()
+    else:
+        player.storage.nullify_warehouse()
 
     while True:
         os.system('cls' if os.name == 'nt' else 'clear')
@@ -29,6 +41,7 @@ if __name__ == '__main__':
                 player.nullify_field()
                 player.age_all()
             case _:
+                print("\n\nВыходим из программы!")
                 exit()
 
 # прополка
