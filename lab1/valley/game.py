@@ -23,6 +23,7 @@ class GameMaster(Warehouse, GardenBed):
         if self.field.plants[number].mods > 1.0:
             self.field.plants[number].mods = 1.0
 
+
     def age_all(self):  # Увеличивается процесс урожая ход
         for x in self.field.plants:
             x.age(self)
@@ -129,20 +130,19 @@ class GameMaster(Warehouse, GardenBed):
         self.field.plants.clear()
 
 
-
 class Plant:  # Базовый класс
-        harvest_progress: int = 0
-        harvest_max: int = 0
-        growth_progress = 0
-        growth_max = 0
-        name: 'Plant'
-        mods:  float = 1.0  # Шанс на то, что растение даст урожай
-        is_droughted:  bool = False
-        has_colorado_beatle: bool = False
-        diseases: bool = False
-        weeded: bool = False
-        id: None
-        plods: str = 'Plods'
+    harvest_progress: int = 0
+    harvest_max: int = 0
+    growth_progress = 0
+    growth_max = 0
+    name: 'Plant'
+    mods:  float = 1.0  # Шанс на то, что растение даст урожай
+    is_droughted:  bool = False
+    has_colorado_beatle: bool = False
+    diseases: bool = False
+    weeded: bool = False
+    id: None
+    plods: str = 'Plods'
 
 
 class Tree(Plant, GameMaster):  # Класс дерева
@@ -151,6 +151,7 @@ class Tree(Plant, GameMaster):  # Класс дерева
             if target.field.plants[x] == self:
                 print("\n" + str(x + 1) + ": ", sep='', end='')
 
+        self.mods = np.around(self.mods, 3)
         if self.growth_progress < self.growth_max:
             print(self.name , ". Рост дерева: " + str(self.growth_progress) + "/" + str(self.growth_max), sep='',
                   end='')
@@ -180,6 +181,7 @@ class Vegetable(Plant, GameMaster):  # Класс овощей
         for x in range(0, len(target.field.plants)):
             if target.field.plants[x] == self:
                 print("\n" + str(x + 1) + ": ", sep='', end='')
+        self.mods = np.around(self.mods, 3)
         print(self.name , ". Урожай: " + str(self.harvest_progress) + "/" + str(self.harvest_max) + " (M " +
               str(self.mods * 100) + "%)", sep='', end='')
         if self.weeded:
