@@ -112,7 +112,7 @@ class Events:  # случайное событие, не зависящее от
                 x.mods = np.around(x.mods, 3)
 
     @staticmethod
-    def deisease_start(target: GameMaster):
+    def disease_start(target: GameMaster):
         print("\n")
         Events.illness = True
         print("\nНашествие болезни на определённый вид растения")
@@ -173,7 +173,7 @@ class Events:  # случайное событие, не зависящее от
         elif random.random() < 0.20 and Events.colorado_attack:
             Events.colorado_beatle_end(target)
         if random.random() < 0.15 and not Events.illness:
-            Events.deisease_start(target)
+            Events.disease_start(target)
         elif random.random() < 0.15 and Events.illness:
             Events.disease_end(target)
         chance = random.random()

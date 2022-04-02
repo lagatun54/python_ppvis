@@ -3,7 +3,14 @@ import os
 
 class Warehouse:  # Склад, тут будем хранить кол-во всех растений
     namelist = ["яблони", "груши", "вишни", "сливы", "картофель", "морковь", "капуста", "перец"]
-    house = {
+    house: dict
+
+    with open("D:\\Projects\\2course\\ppvis\\sem2\\laba1\\lab1\\warehouse.json", 'r', encoding='utf-8') as f:
+        house = json.loads(f.read())
+        f.close()
+
+    def nullify_warehouse(self):
+        self.house = {
         'Яблоки': 0,
         'Груши': 0,
         'Вишни': 0,
@@ -55,4 +62,6 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
         working_directory = os.getcwd()
         file_path = working_directory + '/warehouse.json'
         with open('file_path', 'w', encoding='utf-8') as f:
+
             json.dump(self.house, f, ensure_ascii=False, indent=2)
+            f.close()

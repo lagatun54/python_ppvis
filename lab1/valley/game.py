@@ -120,6 +120,8 @@ class GameMaster(Warehouse, GardenBed):
 class Plant:  # Базовый класс
         harvest_progress: int = 0
         harvest_max: int = 0
+        growth_progress = 0
+        growth_max = 0
         name: 'Plant'
         mods:  float = 1.0  # Шанс на то, что растение даст урожай
         is_droughted:  bool = False
@@ -131,9 +133,6 @@ class Plant:  # Базовый класс
 
 
 class Tree(Plant, GameMaster):  # Класс дерева
-    growth_progress = 0
-    growth_max = 0
-
     def show_plant_status(self, target: GameMaster):
         for x in range(0, len(target.field.plants)):
             if target.field.plants[x] == self:
@@ -227,7 +226,7 @@ class Plum(Tree):
     harvest_max = 2
     growth_max = 5
     name = 'Слива'
-    plods = 'Cливы'
+    plods = 'Сливы'
     id = 3
 
 
