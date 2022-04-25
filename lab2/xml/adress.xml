@@ -1,0 +1,353 @@
+<?xml version="1.0" ?>
+  <table>
+    <stock>
+      <name>Joesph Hodges</name>
+      <line_up>kamenb</line_up>
+      <position>115</position>
+      <titles>forward</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Ernest Antillon</name>
+      <line_up>kamenb</line_up>
+      <position>65</position>
+      <titles>defender</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Cindy Mcnally</name>
+      <line_up>popcorn</line_up>
+      <position>101</position>
+      <titles>midfielder</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Norma Wall</name>
+      <line_up>popcorn</line_up>
+      <position>57</position>
+      <titles>defender</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Veronica Martin</name>
+      <line_up>Coca-cola</line_up>
+      <position>67</position>
+      <titles>midfielder</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Derrick Class</name>
+      <line_up>kamenb</line_up>
+      <position>140</position>
+      <titles>midfielder</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Jennifer Close</name>
+      <line_up>popcorn</line_up>
+      <position>82</position>
+      <titles>defender</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Aimee Williams</name>
+      <line_up>Coca-cola</line_up>
+      <position>110</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Claire Byrd</name>
+      <line_up>popcorn</line_up>
+      <position>148</position>
+      <titles>forward</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Thomas Murray</name>
+      <line_up>popcorn</line_up>
+      <position>50</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Melody Stelling</name>
+      <line_up>popcorn</line_up>
+      <position>97</position>
+      <titles>midfielder</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Emma Lane</name>
+      <line_up>Coca-cola</line_up>
+      <position>135</position>
+      <titles>midfielder</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Ruth Duncan</name>
+      <line_up>Coca-cola</line_up>
+      <position>8</position>
+      <titles>forward</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Ernest Diggs</name>
+      <line_up>popcorn</line_up>
+      <position>66</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Joe Vaugh</name>
+      <line_up>popcorn</line_up>
+      <position>45</position>
+      <titles>defender</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Jessica Kaszynski</name>
+      <line_up>popcorn</line_up>
+      <position>89</position>
+      <titles>goalkeeper</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Deborah Blaine</name>
+      <line_up>popcorn</line_up>
+      <position>140</position>
+      <titles>midfielder</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Sharon Torrez</name>
+      <line_up>kamenb</line_up>
+      <position>3</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Thelma Sumpter</name>
+      <line_up>popcorn</line_up>
+      <position>20</position>
+      <titles>midfielder</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>James Southwick</name>
+      <line_up>kamenb</line_up>
+      <position>2</position>
+      <titles>midfielder</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Asuncion Bucklin</name>
+      <line_up>popcorn</line_up>
+      <position>60</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Wilma Mcwhorter</name>
+      <line_up>Coca-cola</line_up>
+      <position>133</position>
+      <titles>defender</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Rebecca Neal</name>
+      <line_up>popcorn</line_up>
+      <position>8</position>
+      <titles>midfielder</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Chris Fulcher</name>
+      <line_up>Coca-cola</line_up>
+      <position>23</position>
+      <titles>midfielder</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Dawn Hernandez</name>
+      <line_up>popcorn</line_up>
+      <position>86</position>
+      <titles>midfielder</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Carolyn Mahr</name>
+      <line_up>Coca-cola</line_up>
+      <position>4</position>
+      <titles>defender</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Henry Nogle</name>
+      <line_up>Coca-cola</line_up>
+      <position>7</position>
+      <titles>defender</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Richard Sanchez</name>
+      <line_up>popcorn</line_up>
+      <position>93</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Jason Ortiz</name>
+      <line_up>Coca-cola</line_up>
+      <position>33</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Manuela Hensley</name>
+      <line_up>Coca-cola</line_up>
+      <position>34</position>
+      <titles>midfielder</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Doris Beltran</name>
+      <line_up>kamenb</line_up>
+      <position>139</position>
+      <titles>midfielder</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Patricia Gould</name>
+      <line_up>Coca-cola</line_up>
+      <position>107</position>
+      <titles>forward</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>John Poeschel</name>
+      <line_up>popcorn</line_up>
+      <position>79</position>
+      <titles>goalkeeper</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Paul Bona</name>
+      <line_up>Coca-cola</line_up>
+      <position>74</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Lyle Nehls</name>
+      <line_up>popcorn</line_up>
+      <position>88</position>
+      <titles>forward</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Amber Wilson</name>
+      <line_up>Coca-cola</line_up>
+      <position>13</position>
+      <titles>midfielder</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Sylvia Mickelson</name>
+      <line_up>kamenb</line_up>
+      <position>16</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Michael Holloway</name>
+      <line_up>Coca-cola</line_up>
+      <position>26</position>
+      <titles>midfielder</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Joseph Whittle</name>
+      <line_up>kamenb</line_up>
+      <position>41</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Martin Odell</name>
+      <line_up>kamenb</line_up>
+      <position>23</position>
+      <titles>forward</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Carol Lunn</name>
+      <line_up>Coca-cola</line_up>
+      <position>145</position>
+      <titles>midfielder</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>James Giambra</name>
+      <line_up>popcorn</line_up>
+      <position>129</position>
+      <titles>forward</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Jamie Rivenburg</name>
+      <line_up>kamenb</line_up>
+      <position>122</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Adrianna Garvin</name>
+      <line_up>kamenb</line_up>
+      <position>53</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Angel Papp</name>
+      <line_up>popcorn</line_up>
+      <position>112</position>
+      <titles>midfielder</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Matthew Johnson</name>
+      <line_up>popcorn</line_up>
+      <position>139</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Gerardo Colbert</name>
+      <line_up>kamenb</line_up>
+      <position>65</position>
+      <titles>goalkeeper</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Hattie Yancey</name>
+      <line_up>Coca-cola</line_up>
+      <position>101</position>
+      <titles>goalkeeper</titles>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Caitlin Poquette</name>
+      <line_up>kamenb</line_up>
+      <position>55</position>
+      <titles>defender</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>William Sargent</name>
+      <line_up>popcorn</line_up>
+      <position>1</position>
+      <titles>forward</titles>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+  </table>

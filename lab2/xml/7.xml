@@ -1,0 +1,353 @@
+<?xml version="1.0" ?>
+  <table>
+    <stock>
+      <name>Charles Wellington</name>
+      <line_up>popcorn</line_up>
+      <titles>5538</titles>
+      <position>101</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Sharon Mera</name>
+      <line_up>kamenb</line_up>
+      <titles>3355</titles>
+      <position>44</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Savanna Harris</name>
+      <line_up>popcorn</line_up>
+      <titles>2532</titles>
+      <position>47</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>William Banks</name>
+      <line_up>popcorn</line_up>
+      <titles>5675</titles>
+      <position>144</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Wilmer Mouton</name>
+      <line_up>kamenb</line_up>
+      <titles>3801</titles>
+      <position>8</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Sandra Higgins</name>
+      <line_up>kamenb</line_up>
+      <titles>8010</titles>
+      <position>50</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Janice Odom</name>
+      <line_up>Coca-cola</line_up>
+      <titles>9671</titles>
+      <position>21</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Jason Suriel</name>
+      <line_up>Coca-cola</line_up>
+      <titles>8821</titles>
+      <position>0</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Jackie Nielson</name>
+      <line_up>popcorn</line_up>
+      <titles>2913</titles>
+      <position>45</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Todd Moran</name>
+      <line_up>Coca-cola</line_up>
+      <titles>9942</titles>
+      <position>16</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Latanya Love</name>
+      <line_up>Coca-cola</line_up>
+      <titles>2462</titles>
+      <position>61</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>John Kotas</name>
+      <line_up>Coca-cola</line_up>
+      <titles>7473</titles>
+      <position>12</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Frederick Wolfe</name>
+      <line_up>kamenb</line_up>
+      <titles>8931</titles>
+      <position>119</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Scott Robertson</name>
+      <line_up>popcorn</line_up>
+      <titles>6854</titles>
+      <position>100</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Adrian Mettig</name>
+      <line_up>popcorn</line_up>
+      <titles>2074</titles>
+      <position>95</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Elizabeth Franks</name>
+      <line_up>kamenb</line_up>
+      <titles>4127</titles>
+      <position>63</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Ray Torres</name>
+      <line_up>popcorn</line_up>
+      <titles>8531</titles>
+      <position>31</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Constance Robinson</name>
+      <line_up>popcorn</line_up>
+      <titles>8834</titles>
+      <position>112</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>James Goff</name>
+      <line_up>Coca-cola</line_up>
+      <titles>5073</titles>
+      <position>37</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Margaret Burns</name>
+      <line_up>Coca-cola</line_up>
+      <titles>9442</titles>
+      <position>7</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Scott Beier</name>
+      <line_up>kamenb</line_up>
+      <titles>9423</titles>
+      <position>105</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Bennie Buel</name>
+      <line_up>kamenb</line_up>
+      <titles>4658</titles>
+      <position>55</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Ronald Hart</name>
+      <line_up>kamenb</line_up>
+      <titles>2852</titles>
+      <position>62</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Jeremy Butts</name>
+      <line_up>popcorn</line_up>
+      <titles>7869</titles>
+      <position>93</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Albert Crystal</name>
+      <line_up>popcorn</line_up>
+      <titles>1319</titles>
+      <position>146</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Zelma Baker</name>
+      <line_up>kamenb</line_up>
+      <titles>9402</titles>
+      <position>73</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Brian Arocho</name>
+      <line_up>Coca-cola</line_up>
+      <titles>9235</titles>
+      <position>35</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Edith Long</name>
+      <line_up>kamenb</line_up>
+      <titles>9998</titles>
+      <position>115</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Raymond Presnell</name>
+      <line_up>popcorn</line_up>
+      <titles>5851</titles>
+      <position>75</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Carolyn Bowl</name>
+      <line_up>popcorn</line_up>
+      <titles>8589</titles>
+      <position>50</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Catherine Paul</name>
+      <line_up>popcorn</line_up>
+      <titles>2648</titles>
+      <position>43</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Lacy Silverman</name>
+      <line_up>popcorn</line_up>
+      <titles>7790</titles>
+      <position>145</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Donald Dellapenna</name>
+      <line_up>Coca-cola</line_up>
+      <titles>5879</titles>
+      <position>89</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Cleo Ruch</name>
+      <line_up>Coca-cola</line_up>
+      <titles>3660</titles>
+      <position>69</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Gregory Wilkinson</name>
+      <line_up>kamenb</line_up>
+      <titles>4071</titles>
+      <position>145</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Allen Flowers</name>
+      <line_up>popcorn</line_up>
+      <titles>1755</titles>
+      <position>52</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Irene Mclaren</name>
+      <line_up>Coca-cola</line_up>
+      <titles>3018</titles>
+      <position>29</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Ginger Pope</name>
+      <line_up>popcorn</line_up>
+      <titles>4643</titles>
+      <position>53</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Terri Arango</name>
+      <line_up>Coca-cola</line_up>
+      <titles>7927</titles>
+      <position>67</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Marvin Patterson</name>
+      <line_up>popcorn</line_up>
+      <titles>5310</titles>
+      <position>150</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Samuel Bronson</name>
+      <line_up>kamenb</line_up>
+      <titles>3663</titles>
+      <position>119</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Craig Wendte</name>
+      <line_up>kamenb</line_up>
+      <titles>4457</titles>
+      <position>130</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Sherry Todd</name>
+      <line_up>popcorn</line_up>
+      <titles>6405</titles>
+      <position>141</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>William Chagnon</name>
+      <line_up>popcorn</line_up>
+      <titles>2814</titles>
+      <position>28</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Gertude Smith</name>
+      <line_up>Coca-cola</line_up>
+      <titles>4481</titles>
+      <position>88</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Mary Collins</name>
+      <line_up>Coca-cola</line_up>
+      <titles>3840</titles>
+      <position>42</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Polly Scott</name>
+      <line_up>kamenb</line_up>
+      <titles>7861</titles>
+      <position>75</position>
+      <rank>1620 Johnson Way</rank>
+    </stock>
+    <stock>
+      <name>Catherine Ellsworth</name>
+      <line_up>popcorn</line_up>
+      <titles>9838</titles>
+      <position>142</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Wilbur Betts</name>
+      <line_up>kamenb</line_up>
+      <titles>3671</titles>
+      <position>55</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+    <stock>
+      <name>Bobbie Mcilwain</name>
+      <line_up>Coca-cola</line_up>
+      <titles>3363</titles>
+      <position>29</position>
+      <rank>1214 FIRST STATE BLVD</rank>
+    </stock>
+  </table>
