@@ -21,9 +21,6 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
         'Капуста': 0,
         'Перец': 0
         }
-        with open(r'D:\Projects\2course\ppvis\sem2\laba1\lab1\warehouse.json', 'w', encoding='utf-8') as f:
-            json.dump(self.house, f, ensure_ascii=False, indent=2)
-            f.close()
 
     working_directory = os.getcwd()
     file_path = working_directory + '/warehouse.json'
@@ -65,7 +62,7 @@ class Warehouse:  # Склад, тут будем хранить кол-во в�
             print("Перец: ", self.house.get("Перец"))
         working_directory = os.getcwd()
         file_path = working_directory + '/warehouse.json'
-        with open('file_path', 'w', encoding='utf-8') as f:
+        with open(file_path, 'w', encoding='utf-8') as f:
 
             json.dump(self.house, f, ensure_ascii=False, indent=2)
             f.close()

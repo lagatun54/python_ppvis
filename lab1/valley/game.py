@@ -162,7 +162,7 @@ class Tree(Plant, GameMaster):  # Класс дерева
                     if random.random() < self.mods:
                         working_directory = os.getcwd()
                         file_path = working_directory + '/warehouse.json'
-                        with open('file_path', 'r', encoding='utf-8') as f:
+                        with open(file_path, 'r', encoding='utf-8') as f:
                             house = json.loads(f.read())
                         self.harvest_progress = 0
                         self.storage.house[self.plods] += 1
@@ -189,7 +189,7 @@ class Vegetable(Plant, GameMaster):  # Класс овощей
             if random.random() < self.mods:
                     working_directory = os.getcwd()
                     file_path = working_directory + '/warehouse.json'
-                    with open('file_path', 'r', encoding='utf-8') as f:
+                    with open(file_path, 'r', encoding='utf-8') as f:
                         house = json.loads(f.read())
                     self.harvest_progress = 0
                     self.storage.house[self.plods] += 1

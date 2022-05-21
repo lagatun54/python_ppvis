@@ -24,6 +24,7 @@ class Events:  # случайное событие, не зависящее от
         event = json.loads(f.read())
         f.close()
 
+    # Начало засуха 
     @staticmethod
     def drought_start(target: GameMaster):  # бьёт по всем
         if not Events.event["Засуха"]:
@@ -41,7 +42,7 @@ class Events:  # случайное событие, не зависящее от
                     x.is_droughted = True
                 else:
                     x.mods = 0.0
-
+    #Начала засухи
     @staticmethod
     def drought_end(target: GameMaster):  # бьёт по всем
         if Events.event["Засуха"]:
@@ -58,6 +59,7 @@ class Events:  # случайное событие, не зависящее от
                     x.mods = np.around(x.mods, 3)
                     x.is_droughted = False
 
+    #Наступление колорадского жука
     @staticmethod
     def colorado_beatle_start(target: GameMaster):  # бьёт по картошке
         Events.colorado_attack = True
@@ -71,6 +73,7 @@ class Events:  # случайное событие, не зависящее от
                 x.mods = 0.0
                 x.has_colorado_beatle = True
 
+    #прекращение колорадских жуков
     @staticmethod
     def colorado_beatle_end(target: GameMaster):
         Events.colorado_attack = False
@@ -82,9 +85,9 @@ class Events:  # случайное событие, не зависящее от
                 x.has_colorado_beatle = False
                 if x.mods > 1.0:
                     x.mods = 1.0
-
+    #Начался Дождь
     @staticmethod
-    def rain_start(target: GameMaster):
+    def rain_start(target: GameMaster): #Поливает все растения
         if not Events.event["Дождь"]:
             print("Пошёл дождь.")
             Events.rainy = True
@@ -97,6 +100,7 @@ class Events:  # случайное событие, не зависящее от
                 x.mods += 0.05
                 x.mods = np.around(x.mods, 3)
 
+    #Прекращение дождя
     @staticmethod
     def rain_end(target: GameMaster):
         if Events.event["Дождь"]:
@@ -111,8 +115,9 @@ class Events:  # случайное событие, не зависящее от
                 x.mods -= 0.05
                 x.mods = np.around(x.mods, 3)
 
+    #старт нашествия болезней на опр вид растений 
     @staticmethod
-    def disease_start(target: GameMaster):
+    def disease_start(target: GameMaster): #Выбирает определённое вид растения
         print("\n")
         Events.illness = True
         print("\nНашествие болезни на определённый вид растения")
@@ -126,6 +131,7 @@ class Events:  # случайное событие, не зависящее от
                 x.mods = np.around(x.mods, 3)
                 x.diseases = True
 
+    #Прекращение болезни опр. растения 
     @staticmethod
     def disease_end(target: GameMaster):
         print("\n")
@@ -139,7 +145,8 @@ class Events:  # случайное событие, не зависящее от
                 x.diseases = False
             elif x.id == Events.idDisease and not x.diseases and Events.num_disease != Events.idDisease:
                     pass
-
+    
+    #Атака сорняков начинается
     @staticmethod
     def weed_infestation(target: GameMaster):
         weed_place = random.randint(0, len(target.field.plants) - 1)
@@ -154,6 +161,8 @@ class Events:  # случайное событие, не зависящее от
         else:
             target.field.plants[weed_place].mods = 0.0
 
+
+    #Запуск погодных условий 
     @staticmethod
     def start_disasters(target: GameMaster):
         if len(target.field.plants) == 0:
